@@ -1,76 +1,75 @@
 const quiz = [
 	{
-		question: '日本国内で最も売れたゲーム機は？',
-		answers: [
-			'スーパーファミコン',
-			'プレイステーション2',
-			'ニンテンドースイッチ',
-			'ニンテンドーDS',
-		],
-		correct: 'ニンテンドーDS',
+	  question: 'ゲーム史上、最も売れたゲーム機はどれ？',
+	  answers: [ 'スーパーファミコン', 'PlayStation 2', 'ニンテンドーDS', 'Xbox 360'],
+	  correct: 'ニンテンドーDS'
 	}, {
-		question: '糸井重里が企画に関わった、任天堂の看板ゲームといえば？',
-		answers: [
-			'MOTHER',
-			'スーパーマリオブラザーズ',
-			'スーパードンキーコング',
-			'星のカービィ',
-		],
-		correct: 'MOTHER',
+	  question: '糸井重里が企画に関わった、任天堂の看板ゲームといえば？',
+	  answers: [ 'MOTHER2', 'スーパーマリオブラザーズ3', 'スーパードンキーコング', '星のカービィ'],
+	  correct: 'MOTHER2'
 	}, {
-		question: 'FF4の主人公の名前は？',
-		answers: [
-			'フリオニール',
-			'クラウド',
-			'ティーダ',
-			'セシル',
-		],
-		correct: 'セシル',
+	  question: 'ファイナルファンタジーⅣの主人公の名前は？',
+	  answers: [ 'フリオニール', 'クラウド', 'ティーダ', 'セシル'],
+	  correct: 'セシル'
 	}
-];
-
-const quizLength = quiz.length;
-let quizIndex = 0;
-let score = 0;
-
-const $button = document.getElementsByTagName('button');
-const buttonLength = $button.length;
-
-//クイズの問題文と選択肢を定義
-const setupQuiz = () => {
-	document.getElementById('js-question').textContent = quiz[quizIndex].question;
-	let buttonIndex = 0;
-	while (buttonIndex < buttonLength) {
-		$button[buttonIndex].textContent = quiz[quizIndex].answers[buttonIndex];
-		buttonIndex++;
-	}
-}
-setupQuiz();
-
-//ボタンをクリックしたら正誤判定
-const clickHandler = (e) => {
-	if(quiz[quizIndex].correct === e.target.textContent) {
-		window.alert('正解！');
-		score++;
-	} else {
-		window.alert('不正解！');
-	}
+  ];
+  
+  const $window = window;
+  const $doc = document;
+  const $question = $doc.getElementById('js-question');
+  const $buttons = $doc.querySelectorAll('.btn');
+  
+  const quizLen = quiz.length;
+  let quizCount = 0;
+  let score = 0;
+  
+  const init = () => {
+	$question.textContent = quiz[quizCount].question;
 	
-	quizIndex++;
+	const buttonLen = $buttons.length;
+	let btnIndex = 0;
 	
-	if(quizIndex < quizLength) {
-		//問題が残っていればこちらを実行
-		setupQuiz();
-	} else {
-		//問題がもうなければこちらを実行
-		window.alert('終了！あなたの正解数は' + score + '/' + quizLength + 'です！');
+	while(btnIndex < buttonLen){
+	  $buttons[btnIndex].textContent = quiz[quizCount].answers[btnIndex];
+	  btnIndex++;
 	}
-};
-
-let handlerIndex = 0;
-while (handlerIndex < buttonLength) {
-	document.getElementsByClassName("btn-primary")[handlerIndex].addEventListener('click', (e) => {
-		clickHandler(e);
+  };
+  
+  const goToNext = () => {
+	quizCount++;
+	if(quizCount < quizLen){
+	  init(quizCount);
+	} else {
+	  // $window.alert('クイズ終了！');
+	  showEnd();
+	}
+  };
+  
+  const judge = (elm) => {
+	if(elm.textContent === quiz[quizCount].correct){
+	  $window.alert('正解!');
+	  score++;
+	} else {
+	  $window.alert('不正解!');
+	}
+	goToNext();
+  };
+  
+  const showEnd = () => {
+	$question.textContent = '終了！あなたのスコアは' + score + '/' + quizLen + 'です';
+	
+	const $items = $doc.getElementById('js-items');
+	$items.style.visibility = 'hidden';
+  };
+  
+  init();
+  
+  let answersIndex = 0;
+  let answersLen = quiz[quizCount].answers.length;
+  
+  while(answersIndex < answersLen){
+	$buttons[answersIndex].addEventListener('click', (e) => {
+	  judge(e.target);
 	});
-	handlerIndex++;
-}
+	answersIndex++;
+  }
