@@ -8,7 +8,6 @@ const quiz = [
 			'ニンテンドーDS',
 		],
 		correct: 'ニンテンドーDS',
-		commentary: '日本国内で最も売れたゲーム機は、「ニンテンドーDS」の3299万台です。'
 	}, {
 		question: '糸井重里が企画に関わった、任天堂の看板ゲームといえば？',
 		answers: [
@@ -18,7 +17,6 @@ const quiz = [
 			'星のカービィ',
 		],
 		correct: 'MOTHER',
-		commentary: 'MOTHERは糸井重里が企画し、シナリオを書き、全体をプロデュースしたロールプレイングゲームです。'
 	}, {
 		question: 'FF4の主人公の名前は？',
 		answers: [
@@ -28,7 +26,6 @@ const quiz = [
 			'セシル',
 		],
 		correct: 'セシル',
-		commentary: 'フリオニールはFF2、セシルはFF4、クラウドはFF7、ティーダはFF10の主人公です。'
 	}
 ];
 
@@ -47,8 +44,6 @@ const setupQuiz = () => {
 		$button[buttonIndex].textContent = quiz[quizIndex].answers[buttonIndex];
 		buttonIndex++;
 	}
-	document.getElementById('answer').textContent = quiz[quizIndex].correct;
-	document.getElementById('commentary').textContent = quiz[quizIndex].commentary;
 }
 setupQuiz();
 
