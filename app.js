@@ -1,31 +1,34 @@
 const quiz = [
 	{
-		question: '今までで最も売れたゲーム機は？',
+		question: '日本国内で最も売れたゲーム機は？',
 		answers: [
 			'スーパーファミコン',
 			'プレイステーション2',
 			'ニンテンドースイッチ',
 			'ニンテンドーDS',
 		],
-		correct: 'ニンテンドーDS'
+		correct: 'ニンテンドーDS',
+		commentary: '日本国内で最も売れたゲーム機は、「ニンテンドーDS」の3299万台です。'
 	}, {
 		question: '糸井重里が企画に関わった、任天堂の看板ゲームといえば？',
 		answers: [
-			'MOTHER2',
+			'MOTHER',
 			'スーパーマリオブラザーズ',
 			'スーパードンキーコング',
 			'星のカービィ',
 		],
-		correct: 'MOTHER2'
+		correct: 'MOTHER',
+		commentary: 'MOTHERは糸井重里が企画し、シナリオを書き、全体をプロデュースしたロールプレイングゲームです。'
 	}, {
-		question: 'ファイナルファンタジーIVの主人公の名前は？',
+		question: 'FF4の主人公の名前は？',
 		answers: [
 			'フリオニール',
 			'クラウド',
 			'ティーダ',
 			'セシル',
 		],
-		correct: 'セシル'
+		correct: 'セシル',
+		commentary: 'フリオニールはFF2、セシルはFF4、クラウドはFF7、ティーダはFF10の主人公です。'
 	}
 ];
 
@@ -44,6 +47,8 @@ const setupQuiz = () => {
 		$button[buttonIndex].textContent = quiz[quizIndex].answers[buttonIndex];
 		buttonIndex++;
 	}
+	document.getElementById('answer').textContent = quiz[quizIndex].correct;
+	document.getElementById('commentary').textContent = quiz[quizIndex].commentary;
 }
 setupQuiz();
 
@@ -69,7 +74,7 @@ const clickHandler = (e) => {
 
 let handlerIndex = 0;
 while (handlerIndex < buttonLength) {
-	$button[handlerIndex].addEventListener('click', (e) => {
+	document.getElementsByClassName("btn-primary")[handlerIndex].addEventListener('click', (e) => {
 		clickHandler(e);
 	});
 	handlerIndex++;
